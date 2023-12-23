@@ -3,11 +3,14 @@ import styled from "styled-components";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { useTheme } from "../context";
 
 const Conatiner = styled.div`
     display: flex;
     height: calc(100vh - 7.9rem);
     padding: 7rem 7% 2rem;
+    background: ${(props) => props.isDarkMode && "#0b061f"};
+    color: ${(props) => props.isDarkMode && "white"};
 `;
 
 const Content = styled.div`
@@ -80,6 +83,8 @@ const Button = styled.button`
 `;
 
 const Home = () => {
+    const { isDarkMode } = useTheme();
+
     const handleDownload = () => {
         const resumeUrl = process.env.REACT_APP_PUBLIC_URL + "/resume.pdf";
         const aTag = document.createElement("a");
@@ -91,7 +96,7 @@ const Home = () => {
     };
 
     return (
-        <Conatiner data-section id="home">
+        <Conatiner data-section id="home" isDarkMode={isDarkMode}>
             <Content>
                 <Intro>Hello, I am</Intro>
                 <Name>R.Abhiram Kumar</Name>

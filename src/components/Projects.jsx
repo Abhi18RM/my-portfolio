@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { ProjectDetails } from "../SkillsData";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context.js";
 
 const Conatiner = styled.div`
     padding: 6.2rem 7% 0;
     display: flex;
     align-items: center;
     flex-direction: column;
+    background: ${(props) => props.isDarkMode && "#0b061f"};
+    color: ${(props) => props.isDarkMode && "white"};
 `;
 
 const Heading = styled.h1`
@@ -18,6 +21,7 @@ const Heading = styled.h1`
 const Image = styled.img`
     width: 100%;
     height: 100%;
+    border-radius: 1.7rem;
 `;
 
 const Info = styled.div`
@@ -34,6 +38,7 @@ const Info = styled.div`
     opacity: 0;
     font-size: 1rem;
     font-weight: 500;
+    border-radius: 1.7rem;
     &:hover {
         color: white;
         background: linear-gradient(rgba(0, 0, 0, 0.1), #764ef9);
@@ -76,14 +81,19 @@ const Content = styled.div`
 `;
 
 const Projects = () => {
+    const { isDarkMode } = useTheme();
+
     return (
-        <Conatiner data-section id="projects">
+        <Conatiner data-section id="projects" isDarkMode={isDarkMode}>
             <Heading>
-                Latest <a style={{ color: "#764ef9" }}>Projects</a>
+                Latest{" "}
+                <a href={() => false} style={{ color: "#764ef9" }}>
+                    Projects
+                </a>
             </Heading>
             <Content>
                 {ProjectDetails.map((project) => (
-                    <Project>
+                    <Project key={project.name}>
                         <Image src={project.img} />
                         <Info>
                             <ProjectName>{project.name}</ProjectName>

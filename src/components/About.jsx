@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useTheme } from "../context";
 
 const Container = styled.div`
     height: 100vh;
     padding: 0rem 7% 0rem;
     display: flex;
+    background: ${(props) => props.isDarkMode && "#0b061f"};
+    color: ${(props) => props.isDarkMode && "white"};
 `;
 
 const ImageContainer = styled.div`
@@ -33,12 +36,17 @@ const AboutContent = styled.p`
 `;
 
 const About = () => {
+    const { isDarkMode } = useTheme();
+
     return (
-        <Container data-section id="about">
+        <Container data-section id="about" isDarkMode={isDarkMode}>
             <ImageContainer>image</ImageContainer>
             <AboutContainer>
                 <AboutHeading>
-                    About <a style={{ color: "#764ef9" }}>Me</a>
+                    About{" "}
+                    <a href={() => false} style={{ color: "#764ef9" }}>
+                        Me
+                    </a>
                 </AboutHeading>
                 <AboutContent>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Non

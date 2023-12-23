@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { SkillsData } from "../SkillsData";
+import { useTheme } from "../context";
 
 const Container = styled.div`
     padding: 6rem 7%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: ${(props) => props.isDarkMode && "#0b061f"};
+    color: ${(props) => props.isDarkMode && "white"};
 `;
 
 const SkillsHeading = styled.h1`
@@ -53,10 +56,15 @@ const TypeIcon = styled.div`
 const TypeName = styled.p``;
 
 const Skills = () => {
+    const { isDarkMode } = useTheme();
+
     return (
-        <Container data-section id="skills">
+        <Container data-section id="skills" isDarkMode={isDarkMode}>
             <SkillsHeading>
-                <a style={{ color: "#764ef9" }}>My</a> Skills
+                <a href={() => false} style={{ color: "#764ef9" }}>
+                    My
+                </a>{" "}
+                Skills
             </SkillsHeading>
             <SkillsContainer>
                 {SkillsData.map((type) => (

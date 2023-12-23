@@ -25,7 +25,7 @@ const NavItem = styled.li`
     padding-right: 2rem;
     font-weight: 500;
     cursor: pointer;
-    color: black;
+    color: ${(props) => (props.isDarkMode ? "white" : "black")};
     text-decoration: none;
     list-style: none;
 
@@ -48,7 +48,9 @@ const Container = styled.div`
     position: fixed;
     width: 100%;
     box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
-    background: white;
+    background: ${(props) => (props.isDarkMode ? "#0b061f" : "white")};
+    color: ${(props) => props.isDarkMode && "white"};
+    z-index: 1;
     @media screen and (max-width: 765px) {
         ${Logo} {
             padding-left: 0.2rem;
@@ -74,7 +76,6 @@ const Navbar = () => {
     const sections = useRef([]);
     const { isDarkMode, toggleTheme } = useTheme();
     const [windowSize, setWindowSize] = useState(getWindowSize());
-
     useEffect(() => {
         function handleWindowResize() {
             setWindowSize(getWindowSize());
@@ -111,15 +112,6 @@ const Navbar = () => {
         setActiveSection(newActiveSection);
     };
 
-    // const scrollToSection = (section) => {
-    //     const offset = section === "home" ? 0 : 30; // Adjust the offset as needed
-    //     scroll.scrollTo(section, {
-    //         duration: 500,
-    //         smooth: "easeInOutQuart",
-    //         offset,
-    //     });
-    // };
-
     useEffect(() => {
         sections.current = document.querySelectorAll("[data-section]");
         window.addEventListener("scroll", handleScroll);
@@ -143,7 +135,7 @@ const Navbar = () => {
     };
 
     return (
-        <Container>
+        <Container isDarkMode={isDarkMode}>
             <Logo>
                 <Link
                     to="/"
@@ -158,7 +150,7 @@ const Navbar = () => {
             </Logo>
             <Items>
                 <NavItems>
-                    <NavItem>
+                    <NavItem isDarkMode={isDarkMode}>
                         <ScrollLink
                             to="home"
                             spy={true}
@@ -170,7 +162,7 @@ const Navbar = () => {
                             Home
                         </ScrollLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem isDarkMode={isDarkMode}>
                         <ScrollLink
                             to="about"
                             spy={true}
@@ -182,7 +174,7 @@ const Navbar = () => {
                             About
                         </ScrollLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem isDarkMode={isDarkMode}>
                         <ScrollLink
                             to="skills"
                             spy={true}
@@ -196,7 +188,7 @@ const Navbar = () => {
                             Skills
                         </ScrollLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem isDarkMode={isDarkMode}>
                         <ScrollLink
                             to="projects"
                             spy={true}
@@ -210,7 +202,7 @@ const Navbar = () => {
                             Projects
                         </ScrollLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem isDarkMode={isDarkMode}>
                         <ScrollLink
                             to="contact"
                             spy={true}
