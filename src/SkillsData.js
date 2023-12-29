@@ -1,62 +1,47 @@
 export const SkillsData = [
     {
-        type: "Languages",
-        list: [
-            {
-                name: "C",
-                icon: <i class="devicon-c-line colored"></i>,
-            },
-            {
-                name: "C++",
-                icon: <i class="devicon-cplusplus-plain colored"></i>,
-            },
-            {
-                name: "Python",
-                icon: <i class="devicon-python-plain-wordmark colored"></i>,
-            },
-            {
-                name: "SQL",
-                icon: <i class="devicon-mysql-plain colored"></i>,
-            },
-        ],
+        type: "C",
+        level: 80,
     },
     {
-        type: "Frontend",
-        list: [
-            {
-                name: "HTML",
-                icon: <i class="devicon-html5-plain colored"></i>,
-            },
-            {
-                name: "CSS",
-                icon: <i class="devicon-css3-plain colored"></i>,
-            },
-            {
-                name: "Javascript",
-                icon: <i class="devicon-javascript-plain colored"></i>,
-            },
-            {
-                name: "React",
-                icon: <i class="devicon-react-original colored"></i>,
-            },
-        ],
+        type: "C++",
+        level: 85,
     },
     {
-        type: "Backend",
-        list: [
-            {
-                name: "Node JS",
-                icon: <i class="devicon-nodejs-plain-wordmark colored"></i>,
-            },
-            {
-                name: "Express JS",
-                icon: <i class="devicon-express-original-wordmark colored"></i>,
-            },
-            {
-                name: "MongoDB",
-                icon: <i class="devicon-mongodb-plain-wordmark colored"></i>,
-            },
-        ],
+        type: "Python",
+        level: 80,
+    },
+    {
+        type: "SQL",
+        level: 85,
+    },
+    {
+        type: "HTML",
+        level: 90,
+    },
+    {
+        type: "CSS",
+        level: 80,
+    },
+    {
+        type: "Javascript",
+        level: 75,
+    },
+    {
+        type: "React",
+        level: 75,
+    },
+    {
+        type: "Node JS",
+        level: 70,
+    },
+    {
+        type: "Express JS",
+        level: 70,
+    },
+    {
+        type: "MongoDB",
+        level: 70,
     },
 ];
 

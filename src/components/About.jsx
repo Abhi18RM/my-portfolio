@@ -6,8 +6,8 @@ const Container = styled.div`
     height: 100vh;
     padding: 0rem 7% 0rem;
     display: flex;
-    background: ${(props) => props.isDarkMode && "#0b061f"};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => props.isdarkmode && "#0b061f"};
+    color: ${(props) => props.isdarkmode && "white"};
 `;
 
 const ImageContainer = styled.div`
@@ -39,7 +39,7 @@ const About = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <Container data-section id="about" isDarkMode={isDarkMode}>
+        <Container data-section id="about" isdarkmode={isDarkMode}>
             <ImageContainer>image</ImageContainer>
             <AboutContainer>
                 <AboutHeading>

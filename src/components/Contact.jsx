@@ -7,8 +7,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: ${(props) => props.isDarkMode && "#0b061f"};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => props.isdarkmode && "#0b061f"};
+    color: ${(props) => props.isdarkmode && "white"};
 `;
 
 const Heading = styled.h1`
@@ -37,11 +37,11 @@ const Input = styled.input`
     width: 45%;
     padding: 0.8rem;
     border-radius: 0.8rem;
-    background: ${(props) => (props.isDarkMode ? "#0b061f" : "#fdfdfd")};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => (props.isdarkmode ? "#0b061f" : "#fdfdfd")};
+    color: ${(props) => props.isdarkmode && "white"};
     border: none;
     box-shadow: ${(props) =>
-        props.isDarkMode
+        props.isdarkmode
             ? "0 0.2rem 0.8rem rgba(255, 255, 255, 0.1)"
             : "0 0.1rem 0.5rem rgba(0, 0, 0, 0.2)"};
     outline: none;
@@ -55,11 +55,11 @@ const TextArea = styled.textarea`
     margin: 1rem 0;
     padding: 0.8rem;
     border-radius: 0.8rem;
-    background: ${(props) => (props.isDarkMode ? "#0b061f" : "#fdfdfd")};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => (props.isdarkmode ? "#0b061f" : "#fdfdfd")};
+    color: ${(props) => props.isdarkmode && "white"};
     border: none;
     box-shadow: ${(props) =>
-        props.isDarkMode
+        props.isdarkmode
             ? "0 0.2rem 0.8rem rgba(255, 255, 255, 0.1)"
             : "0 0.1rem 0.5rem rgba(0, 0, 0, 0.2)"};
     outline: none;
@@ -77,7 +77,7 @@ const Button = styled.button`
     font-weight: 600;
 
     &:hover {
-        background: ${(props) => (props.isDarkMode ? "#0b061f" : "white")};
+        background: ${(props) => (props.isdarkmode ? "#0b061f" : "white")};
         color: #764ef9;
         border-color: #764ef9;
     }
@@ -102,10 +102,9 @@ const Contact = () => {
             [name]: value,
         });
     };
-    console.log(details);
 
     return (
-        <Container id="contact" data-section isDarkMode={isDarkMode}>
+        <Container id="contact" data-section isdarkmode={isDarkMode}>
             <Heading>
                 Contact{" "}
                 <a href={() => false} style={{ color: "#764ef9" }}>
@@ -119,14 +118,14 @@ const Contact = () => {
                         name="name"
                         placeholder="Name"
                         onChange={handleInputChange}
-                        isDarkMode={isDarkMode}
+                        isdarkmode={isDarkMode}
                     />
                     <Input
                         type="text"
                         name="email"
                         placeholder="Email Address"
                         onChange={handleInputChange}
-                        isDarkMode={isDarkMode}
+                        isdarkmode={isDarkMode}
                     />
                 </Inputbox>
                 <Inputbox>
@@ -135,14 +134,14 @@ const Contact = () => {
                         name="mobile"
                         placeholder="Mobile Number"
                         onChange={handleInputChange}
-                        isDarkMode={isDarkMode}
+                        isdarkmode={isDarkMode}
                     />
                     <Input
                         type="text"
                         name="subject"
                         placeholder="Email Subject"
                         onChange={handleInputChange}
-                        isDarkMode={isDarkMode}
+                        isdarkmode={isDarkMode}
                     />
                 </Inputbox>
                 <TextArea
@@ -151,10 +150,10 @@ const Contact = () => {
                     name="message"
                     placeholder="Your Message"
                     onChange={handleInputChange}
-                    isDarkMode={isDarkMode}
+                    isdarkmode={isDarkMode}
                 />
             </Form>
-            <Button isDarkMode={isDarkMode}>Send Message</Button>
+            <Button isdarkmode={isDarkMode}>Send Message</Button>
         </Container>
     );
 };

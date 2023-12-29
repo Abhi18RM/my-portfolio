@@ -10,8 +10,8 @@ const Conatiner = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: ${(props) => props.isDarkMode && "#0b061f"};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => props.isdarkmode && "#0b061f"};
+    color: ${(props) => props.isdarkmode && "white"};
 `;
 
 const Heading = styled.h1`
@@ -84,7 +84,7 @@ const Projects = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <Conatiner data-section id="projects" isDarkMode={isDarkMode}>
+        <Conatiner data-section id="projects" isdarkmode={isDarkMode}>
             <Heading>
                 Latest{" "}
                 <a href={() => false} style={{ color: "#764ef9" }}>

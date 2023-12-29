@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import { Instagram, LinkedIn, GitHub } from "@mui/icons-material";
 import { useTheme } from "../context";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const Conatiner = styled.div`
+const Conatiner = styled(motion.div)`
     display: flex;
     height: calc(100vh - 7.9rem);
     padding: 7rem 7% 2rem;
-    background: ${(props) => props.isDarkMode && "#0b061f"};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => props.isdarkmode && "#0b061f"};
+    color: ${(props) => props.isdarkmode && "white"};
 `;
 
 const Content = styled.div`
@@ -96,9 +96,16 @@ const Home = () => {
     };
 
     return (
-        <Conatiner data-section id="home" isDarkMode={isDarkMode}>
+        <Conatiner
+            data-section
+            id="home"
+            isdarkmode={isDarkMode}
+            initial={{ opacity: 0, y: 75 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: "easeInOut" }}
+        >
             <Content>
-                <Intro>Hello, I am</Intro>
+                <Intro>Hello, I'm</Intro>
                 <Name>R.Abhiram Kumar</Name>
                 <Info>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -107,15 +114,30 @@ const Home = () => {
                     pariatur quidem consectetur harum natus vel sint!
                 </Info>
                 <SocialIcons>
-                    <SocialIcon>
-                        <InstagramIcon />
-                    </SocialIcon>
-                    <SocialIcon>
-                        <LinkedInIcon />
-                    </SocialIcon>
-                    <SocialIcon>
-                        <GitHubIcon />
-                    </SocialIcon>
+                    <Link
+                        to="https://www.instagram.com/abhiramravuri"
+                        style={{ display: "flex", color: "#764ef9" }}
+                    >
+                        <SocialIcon>
+                            <Instagram />
+                        </SocialIcon>
+                    </Link>
+                    <Link
+                        to="https://www.linkedin.com/in/abhiram-ravuri/"
+                        style={{ display: "flex", color: "#764ef9" }}
+                    >
+                        <SocialIcon>
+                            <LinkedIn />
+                        </SocialIcon>
+                    </Link>
+                    <Link
+                        to="https://www.linkedin.com/in/abhiram-ravuri/"
+                        style={{ display: "flex", color: "#764ef9" }}
+                    >
+                        <SocialIcon>
+                            <GitHub />
+                        </SocialIcon>
+                    </Link>
                 </SocialIcons>
                 <ButtonContainer>
                     <Button onClick={handleDownload}>Download Resume</Button>

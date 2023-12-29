@@ -2,20 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import { SkillsData } from "../SkillsData";
 import { useTheme } from "../context";
+import SkillBar from "react-skillbars";
 
 const Container = styled.div`
     padding: 6rem 7%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: ${(props) => props.isDarkMode && "#0b061f"};
-    color: ${(props) => props.isDarkMode && "white"};
+    background: ${(props) => props.isdarkmode && "#0b061f"};
+    color: ${(props) => props.isdarkmode && "white"};
 `;
 
 const SkillsHeading = styled.h1`
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 `;
 
 const SkillsContainer = styled.div`
@@ -24,42 +25,19 @@ const SkillsContainer = styled.div`
     flex-direction: column;
 `;
 
-const TypeContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 2.5rem;
-`;
-
-const Type = styled.h3`
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-right: 2rem;
-`;
-
-const TypeSkills = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
-
-const TypeSkill = styled.div`
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-`;
-
-const TypeIcon = styled.div`
-    font-size: 5rem;
-`;
-
-const TypeName = styled.p``;
+const colors = {
+    bar: "#764ef9",
+    title: {
+        text: "#fff",
+        background: "#2980b9",
+    },
+};
 
 const Skills = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <Container data-section id="skills" isDarkMode={isDarkMode}>
+        <Container data-section id="skills" isdarkmode={isDarkMode}>
             <SkillsHeading>
                 <a href={() => false} style={{ color: "#764ef9" }}>
                     My
@@ -67,19 +45,12 @@ const Skills = () => {
                 Skills
             </SkillsHeading>
             <SkillsContainer>
-                {SkillsData.map((type) => (
-                    <TypeContainer key={type.type}>
-                        <Type>{type.type}</Type>
-                        <TypeSkills>
-                            {type.list.map((skill) => (
-                                <TypeSkill key={skill.name}>
-                                    <TypeIcon>{skill.icon}</TypeIcon>
-                                    <TypeName>{skill.name}</TypeName>
-                                </TypeSkill>
-                            ))}
-                        </TypeSkills>
-                    </TypeContainer>
-                ))}
+                <SkillBar
+                    skills={SkillsData}
+                    colors={colors}
+                    animationDuration={2000}
+                    symbolColor={"#3498db"}
+                />
             </SkillsContainer>
         </Container>
     );
