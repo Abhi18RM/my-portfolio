@@ -102,7 +102,8 @@ const Home = () => {
     const { isDarkMode } = useTheme();
 
     const handleDownload = () => {
-        const resumeUrl = process.env.REACT_APP_PUBLIC_URL + "/resume.pdf";
+        const resumeUrl =
+            "https://firebasestorage.googleapis.com/v0/b/my-portfolio-8552a.appspot.com/o/resume.pdf?alt=media&token=e8eb0af3-8753-45a7-936a-c53a3393532a";
         const aTag = document.createElement("a");
         aTag.href = resumeUrl;
         aTag.setAttribute("download", "Abhiram_Resume");
