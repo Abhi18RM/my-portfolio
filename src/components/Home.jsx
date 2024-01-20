@@ -13,8 +13,8 @@ const Conatiner = styled(motion.div)`
     position: relative;
     background: ${(props) =>
         props.isdarkmode
-            ? "linear-gradient(to right,#333,rgb(20 20 22 / 69%)),url(/common-bg.svg)"
-            : "linear-gradient(to right,rgba(245, 245, 245, 0.8),rgba(245, 245, 245, 0.8)),url(/common-bg.svg)"};
+            ? "linear-gradient(to right,#333,rgb(20 20 22 / 69%)),url(common-bg.svg)"
+            : "linear-gradient(to right,rgba(245, 245, 245, 0.8),rgba(245, 245, 245, 0.8)),url(common-bg.svg)"};
     align-items: center;
 `;
 
