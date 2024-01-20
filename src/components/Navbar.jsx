@@ -10,6 +10,13 @@ import { Link as ScrollLink, Events, scrollSpy } from "react-scroll";
 import { useTheme } from "../context";
 import { Link } from "react-router-dom";
 
+const NavbarContent = styled.div`
+    padding: 1.2rem 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+`;
+
 const Logo = styled.div`
     font-weight: 600;
     font-size: 1.5rem;
@@ -47,13 +54,13 @@ const Item = styled.div`
 `;
 
 const Container = styled.div`
-    padding: 1.2rem 3%;
     display: flex;
-    justify-content: space-around;
     position: fixed;
     width: 100%;
-    box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
-    background: ${(props) => (props.isdarkmode ? "#0b061f" : "white")};
+    box-shadow: ${(props) =>
+        props.colorchange && "0 0.1rem 1rem rgba(0, 0, 0, 0.2)"};
+    background: ${(props) =>
+        props.colorchange && (props.isdarkmode ? "#0b061f" : "white")};
     color: ${(props) => props.isdarkmode && "white"};
     z-index: 1;
     @media screen and (max-width: 765px) {
@@ -69,8 +76,7 @@ const Container = styled.div`
             display: none;
         }
         ${Item} {
-            justify-content: flex-end;
-            padding-right: 2rem;
+            padding-left: 1rem;
             display: block;
         }
     }
@@ -81,7 +87,6 @@ const ResNavbar = styled.div`
     top: 100%;
     left: 0;
     width: 100%;
-    padding: 1rem 1.5rem;
     background: ${(props) => (props.isdarkmode ? "#0b061f" : "white")};
     border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -105,6 +110,17 @@ const Navbar = () => {
     const { isDarkMode, toggleTheme } = useTheme();
     const [windowSize, setWindowSize] = useState(getWindowSize());
     const [navExpanded, isNavExpanded] = useState(false);
+    const [colorChange, setColorchange] = useState(undefined);
+
+    const changeNavbarColor = () => {
+        if (window.scrollY >= 210) {
+            setColorchange(true);
+        } else {
+            setColorchange(undefined);
+        }
+    };
+
+    window.addEventListener("scroll", changeNavbarColor);
 
     const handleClick = () => {
         isNavExpanded(!navExpanded);
@@ -175,203 +191,186 @@ const Navbar = () => {
     };
 
     return (
-        <Container isdarkmode={isDarkMode}>
-            <Logo>
-                <Link
-                    to="/"
-                    style={{
-                        textDecoration: "none",
-                        cursor: "pointer",
-                        color: "#764ef9",
-                    }}
-                >
-                    Abhiram.
-                </Link>
-            </Logo>
-            <Items>
-                <NavItems>
-                    <NavItem isdarkmode={isDarkMode}>
-                        <ScrollLink
-                            to="home"
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            activeClass="active"
-                            style={activeSection === "home" ? activeStyle : {}}
-                        >
-                            Home
-                        </ScrollLink>
-                    </NavItem>
-                    <NavItem isdarkmode={isDarkMode}>
-                        <ScrollLink
-                            to="about"
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            activeClass="active"
-                            style={activeSection === "about" ? activeStyle : {}}
-                        >
-                            About
-                        </ScrollLink>
-                    </NavItem>
-                    <NavItem isdarkmode={isDarkMode}>
-                        <ScrollLink
-                            to="skills"
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            activeClass="active"
-                            style={
-                                activeSection === "skills" ? activeStyle : {}
-                            }
-                        >
-                            Skills
-                        </ScrollLink>
-                    </NavItem>
-                    <NavItem isdarkmode={isDarkMode}>
-                        <ScrollLink
-                            to="projects"
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            activeClass="active"
-                            style={
-                                activeSection === "projects" ? activeStyle : {}
-                            }
-                        >
-                            Projects
-                        </ScrollLink>
-                    </NavItem>
-                    <NavItem isdarkmode={isDarkMode}>
-                        <ScrollLink
-                            to="contact"
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            activeClass="active"
-                            style={
-                                activeSection === "contact" ? activeStyle : {}
-                            }
-                        >
-                            Contact
-                        </ScrollLink>
-                    </NavItem>
-                </NavItems>
-                <Item>
-                    {isDarkMode ? (
-                        <LightModeOutlined
-                            style={{ cursor: "pointer" }}
-                            onClick={() => toggleTheme()}
-                        />
-                    ) : (
-                        <DarkModeOutlined
-                            style={{ cursor: "pointer" }}
-                            onClick={() => toggleTheme()}
-                        />
-                    )}
-                </Item>
-                {!windowSize && (
-                    <Item style={{ paddingRight: "2.5rem" }}>
-                        {!navExpanded ? (
-                            <Menu
-                                onClick={handleClick}
+        <Container isdarkmode={isDarkMode} colorchange={colorChange}>
+            <NavbarContent>
+                <Logo>
+                    <Link
+                        to="/"
+                        style={{
+                            textDecoration: "none",
+                            cursor: "pointer",
+                            color: "#764ef9",
+                        }}
+                    >
+                        ABHIRAM.
+                    </Link>
+                </Logo>
+                <Items>
+                    <NavItems>
+                        <NavItem isdarkmode={isDarkMode}>
+                            <ScrollLink
+                                to="home"
+                                spy={true}
+                                smooth={true}
+                                duration={500}
+                                activeClass="active"
+                                style={
+                                    activeSection === "home" ? activeStyle : {}
+                                }
+                            >
+                                Home
+                            </ScrollLink>
+                        </NavItem>
+                        <NavItem isdarkmode={isDarkMode}>
+                            <ScrollLink
+                                to="about"
+                                spy={true}
+                                smooth={true}
+                                duration={500}
+                                activeClass="active"
+                                style={
+                                    activeSection === "about" ? activeStyle : {}
+                                }
+                            >
+                                About
+                            </ScrollLink>
+                        </NavItem>
+                        <NavItem isdarkmode={isDarkMode}>
+                            <ScrollLink
+                                to="projects"
+                                spy={true}
+                                smooth={true}
+                                duration={500}
+                                activeClass="active"
+                                style={
+                                    activeSection === "projects"
+                                        ? activeStyle
+                                        : {}
+                                }
+                            >
+                                Projects
+                            </ScrollLink>
+                        </NavItem>
+                        <NavItem isdarkmode={isDarkMode}>
+                            <ScrollLink
+                                to="contact"
+                                spy={true}
+                                smooth={true}
+                                duration={500}
+                                activeClass="active"
+                                style={
+                                    activeSection === "contact"
+                                        ? activeStyle
+                                        : {}
+                                }
+                            >
+                                Contact
+                            </ScrollLink>
+                        </NavItem>
+                    </NavItems>
+                    <Item>
+                        {isDarkMode ? (
+                            <LightModeOutlined
                                 style={{ cursor: "pointer" }}
+                                onClick={() => toggleTheme()}
                             />
                         ) : (
-                            <Clear
-                                onClick={handleClick}
+                            <DarkModeOutlined
                                 style={{ cursor: "pointer" }}
+                                onClick={() => toggleTheme()}
                             />
                         )}
                     </Item>
-                )}
-                {navExpanded && (
-                    <ResNavbar isdarkmode={isDarkMode}>
-                        <ResNavItems>
-                            <ResNavItem isdarkmode={isDarkMode}>
-                                <ScrollLink
-                                    to="home"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    activeClass="active"
-                                    style={
-                                        activeSection === "home"
-                                            ? resActiveStyle
-                                            : {}
-                                    }
-                                >
-                                    Home
-                                </ScrollLink>
-                            </ResNavItem>
-                            <ResNavItem isdarkmode={isDarkMode}>
-                                <ScrollLink
-                                    to="about"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    activeClass="active"
-                                    style={
-                                        activeSection === "about"
-                                            ? resActiveStyle
-                                            : {}
-                                    }
-                                >
-                                    About
-                                </ScrollLink>
-                            </ResNavItem>
-                            <ResNavItem isdarkmode={isDarkMode}>
-                                <ScrollLink
-                                    to="skills"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    activeClass="active"
-                                    style={
-                                        activeSection === "skills"
-                                            ? resActiveStyle
-                                            : {}
-                                    }
-                                >
-                                    Skills
-                                </ScrollLink>
-                            </ResNavItem>
-                            <ResNavItem isdarkmode={isDarkMode}>
-                                <ScrollLink
-                                    to="projects"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    activeClass="active"
-                                    style={
-                                        activeSection === "projects"
-                                            ? resActiveStyle
-                                            : {}
-                                    }
-                                >
-                                    Projects
-                                </ScrollLink>
-                            </ResNavItem>
-                            <ResNavItem isdarkmode={isDarkMode}>
-                                <ScrollLink
-                                    to="contact"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    activeClass="active"
-                                    style={
-                                        activeSection === "contact"
-                                            ? resActiveStyle
-                                            : {}
-                                    }
-                                >
-                                    Contact
-                                </ScrollLink>
-                            </ResNavItem>
-                        </ResNavItems>
-                    </ResNavbar>
-                )}
-            </Items>
+                    {!windowSize && (
+                        <Item>
+                            {!navExpanded ? (
+                                <Menu
+                                    onClick={handleClick}
+                                    style={{ cursor: "pointer" }}
+                                />
+                            ) : (
+                                <Clear
+                                    onClick={handleClick}
+                                    style={{ cursor: "pointer" }}
+                                />
+                            )}
+                        </Item>
+                    )}
+                    {navExpanded && (
+                        <ResNavbar isdarkmode={isDarkMode}>
+                            <div style={{ padding: "1rem 1.5rem" }}>
+                                <ResNavItems>
+                                    <ResNavItem isdarkmode={isDarkMode}>
+                                        <ScrollLink
+                                            to="home"
+                                            spy={true}
+                                            smooth={true}
+                                            duration={500}
+                                            activeClass="active"
+                                            style={
+                                                activeSection === "home"
+                                                    ? resActiveStyle
+                                                    : {}
+                                            }
+                                        >
+                                            Home
+                                        </ScrollLink>
+                                    </ResNavItem>
+                                    <ResNavItem isdarkmode={isDarkMode}>
+                                        <ScrollLink
+                                            to="about"
+                                            spy={true}
+                                            smooth={true}
+                                            duration={500}
+                                            activeClass="active"
+                                            style={
+                                                activeSection === "about"
+                                                    ? resActiveStyle
+                                                    : {}
+                                            }
+                                        >
+                                            About
+                                        </ScrollLink>
+                                    </ResNavItem>
+
+                                    <ResNavItem isdarkmode={isDarkMode}>
+                                        <ScrollLink
+                                            to="projects"
+                                            spy={true}
+                                            smooth={true}
+                                            duration={500}
+                                            activeClass="active"
+                                            style={
+                                                activeSection === "projects"
+                                                    ? resActiveStyle
+                                                    : {}
+                                            }
+                                        >
+                                            Projects
+                                        </ScrollLink>
+                                    </ResNavItem>
+                                    <ResNavItem isdarkmode={isDarkMode}>
+                                        <ScrollLink
+                                            to="contact"
+                                            spy={true}
+                                            smooth={true}
+                                            duration={500}
+                                            activeClass="active"
+                                            style={
+                                                activeSection === "contact"
+                                                    ? resActiveStyle
+                                                    : {}
+                                            }
+                                        >
+                                            Contact
+                                        </ScrollLink>
+                                    </ResNavItem>
+                                </ResNavItems>
+                            </div>
+                        </ResNavbar>
+                    )}
+                </Items>
+            </NavbarContent>
         </Container>
     );
 };

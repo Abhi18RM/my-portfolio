@@ -7,76 +7,92 @@ import { motion } from "framer-motion";
 
 const Conatiner = styled(motion.div)`
     display: flex;
-    height: calc(100vh - 7.9rem);
-    padding: 7rem 7% 2rem;
+    height: 100vh;
     background: ${(props) => props.isdarkmode && "#0b061f"};
     color: ${(props) => props.isdarkmode && "white"};
+    position: relative;
+    background: ${(props) =>
+        props.isdarkmode
+            ? "linear-gradient(to right,#333,rgb(20 20 22 / 69%)),url(/common-bg.svg)"
+            : "linear-gradient(to right,rgba(245, 245, 245, 0.8),rgba(245, 245, 245, 0.8)),url(/common-bg.svg)"};
+    align-items: center;
 `;
 
 const Content = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0 8rem;
+    @media screen and (max-width: 850px) {
+        padding: 0 2rem;
+    }
 `;
 
-const ImageContainer = styled.div`
-    flex: 1;
-    display: flex;
-`;
-
-const Intro = styled.h3`
-    text-align: start;
-    font-weight: 600;
-    font-size: 1.8rem;
-    padding-bottom: 0.5rem;
-`;
+// const Intro = styled.h3`
+//     text-align: start;
+//     font-weight: 600;
+//     font-size: 1.8rem;
+//     padding-bottom: 0.5rem;
+// `;
 
 const Name = styled.h1`
-    text-align: start;
-    font-weight: 600;
-    font-size: 2.5rem;
-    padding-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 3.5rem;
+    padding-bottom: 1rem;
+    letter-spacing: 3px;
+    @media screen and (max-width: 450px) {
+        font-size: 2.75rem;
+    }
 `;
 
 const Info = styled.p`
-    text-align: start;
-    padding: 0 7rem 3rem 0;
+    text-align: center;
+    @media screen and (max-width: 450px) {
+        font-size: 0.85rem;
+    }
 `;
 
 const SocialIcons = styled.div`
     display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    left: 0;
+    padding: 0.5rem;
+
+    @media screen and (max-width: 1000px) {
+        display: none;
+    }
 `;
 
 const SocialIcon = styled.div`
-    border: 1px solid black;
-    margin-right: 1rem;
-    border-radius: 50%;
     display: flex;
     padding: 0.5rem;
     cursor: pointer;
-    border: 0.15rem solid #754ef9;
-    color: #754ef9;
-    font-size: 1rem;
-    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+    color: ${(props) => (props.isdarkmode ? "white" : "black")};
+    font-size: 1.2rem;
     &:hover {
-        background-color: #754ef9;
-        color: white;
+        background: #754ef9;
     }
 `;
 
 const ButtonContainer = styled.div`
     margin: 2rem 0;
     display: flex;
+    justify-content: center;
 `;
 
 const Button = styled.button`
-    padding: 0.85rem;
+    padding: 0.85rem 1.2rem;
     font-size: 0.85rem;
     color: white;
     background-color: #754ef9;
     border-radius: 0.6rem;
     border: 0.2rem solid transparent;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 0.05rem;
     box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -105,20 +121,17 @@ const Home = () => {
             transition={{ duration: 0.75, ease: "easeInOut" }}
         >
             <Content>
-                <Intro>Hello, I'm</Intro>
-                <Name>R.Abhiram Kumar</Name>
+                <Name>HEY I'M ABHIRAM KUMAR</Name>
                 <Info>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Numquam commodi totam voluptatibus repellat qui aliquid,
-                    omnis porro magnam magni doloribus tenetur quod ipsa,
-                    pariatur quidem consectetur harum natus vel sint!
+                    Skilled Full Stack Developer proficient in frontend and
+                    backend, driving successful web applications and products.
                 </Info>
                 <SocialIcons>
                     <Link
                         to="https://www.instagram.com/abhiramravuri"
                         style={{ display: "flex", color: "#764ef9" }}
                     >
-                        <SocialIcon>
+                        <SocialIcon isdarkmode={isDarkMode}>
                             <Instagram />
                         </SocialIcon>
                     </Link>
@@ -126,7 +139,7 @@ const Home = () => {
                         to="https://www.linkedin.com/in/abhiram-ravuri/"
                         style={{ display: "flex", color: "#764ef9" }}
                     >
-                        <SocialIcon>
+                        <SocialIcon isdarkmode={isDarkMode}>
                             <LinkedIn />
                         </SocialIcon>
                     </Link>
@@ -134,16 +147,15 @@ const Home = () => {
                         to="https://www.linkedin.com/in/abhiram-ravuri/"
                         style={{ display: "flex", color: "#764ef9" }}
                     >
-                        <SocialIcon>
+                        <SocialIcon isdarkmode={isDarkMode}>
                             <GitHub />
                         </SocialIcon>
                     </Link>
                 </SocialIcons>
                 <ButtonContainer>
-                    <Button onClick={handleDownload}>Download Resume</Button>
+                    <Button onClick={handleDownload}>DOWNLOAD RESUME</Button>
                 </ButtonContainer>
             </Content>
-            <ImageContainer>image</ImageContainer>
         </Conatiner>
     );
 };

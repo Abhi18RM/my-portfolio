@@ -1,68 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTheme } from "../context";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
-    padding: 8rem 7% 3rem;
+    padding: 6rem 7% 3rem;
     display: flex;
     align-items: center;
     flex-direction: column;
     background: ${(props) => props.isdarkmode && "#0b061f"};
     color: ${(props) => props.isdarkmode && "white"};
+    @media screen and (max-width: 450px) {
+        padding-top: 3rem;
+        font-size: 0.9rem;
+    }
 `;
 
 const Heading = styled.h1`
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        top: calc(100% + 1rem);
+        height: 5px;
+        width: 2rem;
+        background: #7843e9;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 5px;
+    }
+`;
+
+const ContactDescription = styled.p`
+    text-align: center;
+`;
+
+const FormContainer = styled.div`
+    max-width: 60rem;
+    width: 95%;
+    padding: 3rem;
+    margin: 4rem 0 auto 0;
+    border-radius: 5px;
+    background: ${(props) => (props.isdarkmode ? "#211d35" : "#fff")};
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 `;
 
 const Form = styled.div`
-    width: 80%;
     display: flex;
     flex-direction: column;
-    padding: 2rem;
 `;
 
 const Inputbox = styled.div`
-    padding: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    margin-bottom: 2rem;
+`;
 
-    @media screen and (max-width: 850px) {
-        gap: 2rem;
-    }
+const InputHead = styled.p`
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: ${(props) => (props.isdarkmode ? "white" : "#666")};
+    margin-bottom: 1rem;
 `;
 
 const Input = styled.input`
-    width: 45%;
-    padding: 0.8rem;
-    border-radius: 0.8rem;
-    background: ${(props) => (props.isdarkmode ? "#0b061f" : "#fdfdfd")};
-    color: ${(props) => props.isdarkmode && "white"};
-    border: none;
-    box-shadow: ${(props) =>
-        props.isdarkmode
-            ? "0 0.2rem 0.8rem rgba(255, 255, 255, 0.1)"
-            : "0 0.1rem 0.5rem rgba(0, 0, 0, 0.2)"};
+    color: ${(props) => (props.isdarkmode ? "white" : "#333")};
+    background: ${(props) => (props.isdarkmode ? "#211d35" : "#f0f0f0")};
+    border: 1px solid ${(props) => (props.isdarkmode ? "#211d35" : "#f0f0f0")};
+    padding: 0.6rem;
+    width: 98%;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    font-size: 0.8rem;
     outline: none;
-
-    @media screen and (max-width: 850px) {
-        width: 100%;
-    }
 `;
 
 const TextArea = styled.textarea`
-    margin: 1rem 0;
-    padding: 0.8rem;
-    border-radius: 0.8rem;
-    background: ${(props) => (props.isdarkmode ? "#0b061f" : "#fdfdfd")};
-    color: ${(props) => props.isdarkmode && "white"};
-    border: none;
-    box-shadow: ${(props) =>
-        props.isdarkmode
-            ? "0 0.2rem 0.8rem rgba(255, 255, 255, 0.1)"
-            : "0 0.1rem 0.5rem rgba(0, 0, 0, 0.2)"};
+    width: 98%;
+    padding: 0.6rem;
+    color: ${(props) => (props.isdarkmode ? "white" : "#333")};
+    background: ${(props) => (props.isdarkmode ? "#211d35" : "#f0f0f0")};
+    border: 1px solid ${(props) => (props.isdarkmode ? "#211d35" : "#f0f0f0")};
+    letter-spacing: 1px;
+    border-radius: 5px;
+    font-size: 0.8rem;
     outline: none;
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `;
 
 const Button = styled.button`
@@ -86,14 +117,14 @@ const Button = styled.button`
 const initialValues = {
     name: "",
     email: "",
-    mobile: "",
-    subject: "",
     message: "",
 };
 
 const Contact = () => {
     const [details, setDetails] = useState(initialValues);
     const { isDarkMode } = useTheme();
+
+    useEffect(() => emailjs.init(process.env.REACT_APP_PUBLIC_KEY), []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -103,57 +134,74 @@ const Contact = () => {
         });
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const serviceId = "my_portfolio";
+        const templateId = "template_fnp3fm6";
+        try {
+            await emailjs.send(serviceId, templateId, { ...details });
+            toast.success("Message sent successfully!!", {});
+        } catch (error) {
+            console.log(error);
+            toast.error("Please try again!!", {});
+        } finally {
+            setDetails(initialValues);
+        }
+    };
+
+    console.log(details);
+
     return (
         <Container id="contact" data-section isdarkmode={isDarkMode}>
-            <Heading>
-                Contact{" "}
-                <a href={() => false} style={{ color: "#764ef9" }}>
-                    Me!
-                </a>
-            </Heading>
-            <Form>
-                <Inputbox>
-                    <Input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        onChange={handleInputChange}
-                        isdarkmode={isDarkMode}
-                    />
-                    <Input
-                        type="text"
-                        name="email"
-                        placeholder="Email Address"
-                        onChange={handleInputChange}
-                        isdarkmode={isDarkMode}
-                    />
-                </Inputbox>
-                <Inputbox>
-                    <Input
-                        type="phone"
-                        name="mobile"
-                        placeholder="Mobile Number"
-                        onChange={handleInputChange}
-                        isdarkmode={isDarkMode}
-                    />
-                    <Input
-                        type="text"
-                        name="subject"
-                        placeholder="Email Subject"
-                        onChange={handleInputChange}
-                        isdarkmode={isDarkMode}
-                    />
-                </Inputbox>
-                <TextArea
-                    cols="30"
-                    rows="10"
-                    name="message"
-                    placeholder="Your Message"
-                    onChange={handleInputChange}
-                    isdarkmode={isDarkMode}
-                />
-            </Form>
-            <Button isdarkmode={isDarkMode}>Send Message</Button>
+            <Heading>CONTACT ME</Heading>
+            <ContactDescription>
+                Feel free to Contact me by submitting the form below and I will
+                get back to you as soon as possible
+            </ContactDescription>
+            <FormContainer isdarkmode={isDarkMode}>
+                <Form>
+                    <Inputbox>
+                        <InputHead isdarkmode={isDarkMode}>Name</InputHead>
+                        <Input
+                            type="text"
+                            name="name"
+                            placeholder="Enter Your Name"
+                            onChange={handleInputChange}
+                            isdarkmode={isDarkMode}
+                            value={details.name}
+                        />
+                    </Inputbox>
+                    <Inputbox>
+                        <InputHead isdarkmode={isDarkMode}>Email</InputHead>
+                        <Input
+                            type="text"
+                            name="email"
+                            placeholder="Enter Your Email Address"
+                            onChange={handleInputChange}
+                            isdarkmode={isDarkMode}
+                            value={details.email}
+                        />
+                    </Inputbox>
+                    <Inputbox>
+                        <InputHead isdarkmode={isDarkMode}>Message</InputHead>
+                        <TextArea
+                            cols="30"
+                            rows="10"
+                            name="message"
+                            placeholder="Enter Your Message"
+                            onChange={handleInputChange}
+                            isdarkmode={isDarkMode}
+                            value={details.message}
+                        />
+                    </Inputbox>
+                    <ButtonContainer>
+                        <Button isdarkmode={isDarkMode} onClick={handleSubmit}>
+                            SEND MESSAGE
+                        </Button>
+                    </ButtonContainer>
+                </Form>
+            </FormContainer>
+            <ToastContainer />
         </Container>
     );
 };
